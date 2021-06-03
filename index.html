@@ -1,13 +1,15 @@
-<div class="wrapper">
-  <div id="calendari"></div>
-  <footer><a href="http://boudra.me/">boudra.me</a></footer>
-</div>
+<!DOCTYPE html>
+<!-- original:https://codepen.io/boudra/pen/raErwP -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
 
-
-body {
+    <style>
+        body {
     font-family: 'Arial', sans-serif;
-    background-color: #3b323f;
-  height: 100vh;
+    background-color: #fff;
 }
 
 .wrapper {
@@ -24,38 +26,23 @@ button::-moz-focus-inner {
 }
 
 #calendari {
-    margin: 20px 0;
-    position: relative;
-    overflow: hidden;
-    height: 310px;
-    width: 350px;
+    margin:  0 auto;
+    /* height: 330px; */
+    /* width: 350px; */
     font-size: 14px;
-    box-shadow: 0px 1px 4px rgba(0,0,0,0.4);
+    /* box-shadow: 0px 1px 4px rgba(0,0,0,0.4); */
 }
 table {
     border-collapse: collapse;
     table-layout: fixed;
-    width: 350px;
     box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
     background-color: #fff;
     position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateX(0);
-    transition: all 0.3s ease;
+
+
 }
-table.actiu {
-    transform: translateX(0px)top;
-}
-table.inactiu {
-    transition: all 0.3s 0.01s ease;
-}
-table.amagat-esquerra {
-    transform: translateX(-299px);
-}
-table.amagat-dreta {
-    transform: translateX(300px);
-}
+
+
 td,th {
     text-align: center;
     background-color: #fff;
@@ -76,7 +63,7 @@ td:last-child, th:last-child {
 th {
     border-top: 1px solid rgba(0,0,0,0.1);
     border-right: 1px solid rgba(0,0,0,0.1);
-    background-color: #919f89;
+    background-color: #9b59b6;
     color: #fff;
     text-shadow: 0px -1px 0px rgba(0,0,0,0.2);
     font-weight: normal;
@@ -108,11 +95,11 @@ td:nth-child(even)>span {
 }
 td:last-child>span,
 td:nth-child(6)>span {
-    color: #919f89;
+    color: #9b59b6;
 }
 td.avui>span {
     font-weight: bold;
-    background-color: #919f89;
+    background-color: #9b59b6;
     color: #fff;
     border: 2px solid rgba(0,0,0,0.1);
 }
@@ -163,41 +150,46 @@ footer a:link {
   color: #fff;
   text-decoration: none;
 }
-
-
-var mesos = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre'
+    </style>
+</head>
+<body>
+    <div class="">
+        <div id="calendari"></div>
+      </div>
+      <script>
+        var mesos = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'Desember'
 ];
 
 var dies = [
-    'Domingo',
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sábado'
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wedensday',
+    'Thursday',
+    'Friday',
+    'Saturday'
 ];
 
 var dies_abr = [
-    'dom',
-    'lun',
-    'mar',
-    'mié',
-    'vue',
-    'vie',
-    'sáb'
+    'Su',
+    'Mo',
+    'Tu',
+    'We',
+    'Th',
+    'Fr',
+    'Sa'
 ];
 
 Number.prototype.pad = function(num) {
@@ -216,9 +208,9 @@ function calendari(widget, data)
     {
         original = document.createElement('table');
         original.setAttribute('data-actual',
-            data.getFullYear() + '/' +
-            data.getMonth().pad(2) + '/' +
-            data.getDate().pad(2))
+			      data.getFullYear() + '/' +
+			      data.getMonth().pad(2) + '/' +
+			      data.getDate().pad(2))
         widget.appendChild(original);
     }
 
@@ -284,8 +276,8 @@ function calendari(widget, data)
         new Date(data.getFullYear(), data.getMonth(), -1).getDay();
 
     var actual = new Date(data.getFullYear(),
-        data.getMonth(),
-        -inici_mes);
+			  data.getMonth(),
+			  -inici_mes);
 
     /* 6 setmanes per cobrir totes les posiblitats
      *  Quedaria mes consistent alhora de mostrar molts mesos 
@@ -296,10 +288,10 @@ function calendari(widget, data)
 
         for(var d = 1; d < 8; d++)
         {
-      var cela = document.createElement('td');
-      var span = document.createElement('span');
+	    var cela = document.createElement('td');
+	    var span = document.createElement('span');
 
-      cela.appendChild(span);
+	    cela.appendChild(span);
 
             span.innerHTML = actual.getDate();
 
@@ -308,10 +300,10 @@ function calendari(widget, data)
 
             /* Si es avui el decorem */
             if(data.getDate() == actual.getDate() &&
-         data.getMonth() == actual.getMonth())
-    cela.className = 'avui';
+	       data.getMonth() == actual.getMonth())
+		cela.className = 'avui';
 
-      actual.setDate(actual.getDate()+1);
+	    actual.setDate(actual.getDate()+1);
             fila.appendChild(cela);
         }
 
@@ -335,3 +327,7 @@ function calendari(widget, data)
 }
 
 calendari(document.getElementById('calendari'), new Date());
+
+    </script>
+</body>
+</html>
